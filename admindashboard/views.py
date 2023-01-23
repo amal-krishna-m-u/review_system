@@ -26,3 +26,30 @@ def delete_category(request, pk):
     category = Category.objects.get(pk=pk)
     category.delete()
     return render(request, 'admindashboard/delete_category.html')
+
+
+
+    from django.shortcuts import render, redirect
+from .models import User
+from .forms import AddUserForm
+
+def add_user(request):
+    if request.method == 'POST':
+        form = AddUserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            is_admin = form.cleaned_data['is_admin']
+            user = User.objects.create_user(username=username, password=password)
+            user.is_admin = is_admin
+            user.save()
+            return redirect('index')
+    else:
+        form = AddUserForm()
+    return render(request, 'add_user.html', {'form': form})
+
+def remove_user(request, username):
+    user = User.objects.get(username=username)
+    user.delete()
+    return redirect('index')
+
