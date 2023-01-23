@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from admindashboard.views import index, add_category, edit_category, delete_category
+from admindashboard.views import index, add_category, edit_category, delete_category, add_user, remove_user
 import admindashboard 
 
 urlpatterns = [
@@ -24,5 +24,7 @@ urlpatterns = [
     path('add/', add_category, name='add_category'),
     path('edit/<int:pk>/', edit_category, name='edit_category'),
     path('delete/<int:pk>/', delete_category, name='delete_category'),
+    path('add_user/', add_user, name='add_user'),
+    path('remove_user/<str:username>', remove_user, name='remove_user')
 ]
 
